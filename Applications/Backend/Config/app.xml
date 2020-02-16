@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<definitions>
+  <define var="login" value="admin" />
+  <define var="password" value="mdp" />
+
+  <define var="perPage" value="50" />
+  <define var="delta" value="10" />
+</definitions>

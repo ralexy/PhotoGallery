@@ -1,0 +1,174 @@
+body
+{
+  margin: 0;
+  padding: 0;
+  font-family: Arial;
+}
+a, a:visited
+{
+  color: #777;
+  text-decoration: none;
+}
+a:hover
+{
+  color: black;
+  text-decoration: underline;
+}
+h1, h2, h3, h4, h5, h6
+{
+  font-weight: normal;
+}
+
+header
+{
+  height: 50px;
+  padding: 0 5%;
+  border-bottom: 2px dotted #ddd;
+}
+header h1
+{
+  font-weight: normal;
+  display: inline;
+  line-height: 50px;
+  vertical-align: middle;
+}
+header h1 a, header h1 a:visited, header h1 a:hover
+{
+  color: black;
+  text-decoration: none;
+}
+
+header ul, header li
+{
+  display: inline;
+  text-transform: uppercase;
+  font-size: 0.9em;
+}
+header li
+{
+  line-height: 50px;
+  vertical-align: middle;
+}
+
+header form
+{
+  float: right;
+  line-height: 50px;
+  vertical-align: middle;
+}
+header input[type="text"]
+{
+  width: 160px; height: 23px;
+  padding: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+header input[type="text"]:focus
+{
+  border: 1px solid #5196e1;
+}
+
+#logout
+{
+  float: right;
+}
+#logout a:hover
+{
+  color: red;
+}
+header li:not(:first-child)
+{
+  margin-left: 10px;
+}
+
+/* Page */
+#page
+{
+  width: 80%;
+  margin: 30px auto;
+}
+#page th a
+{
+  color: black;
+}
+#page p a:not(:first-child)
+{
+  margin-left: 5px
+}
+
+#page table
+{
+  width: 100%;
+  border-collapse: collapse;
+}
+#page th
+{
+  font-weight: normal;
+  height: 50px;
+  font-size: 1.2em;
+}
+#page td
+{
+  text-align: center;
+  height: 40px;
+  border: 1px solid #eee;
+}
+
+.red
+{
+  color: red;
+}
+.green
+{
+  color: green;
+}
+.f_right
+{
+  float: right;
+}
+.maj
+{
+  text-transform: uppercase;
+}
+.center
+{
+  text-align: center;
+}
+
+#stats td
+{
+  width: 45%;
+}
+
+/* Login */
+form
+{
+  text-align: center;
+}
+input
+{
+  width: 180px; height: 35px;
+  padding: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+input:focus
+{
+  border: 1px solid #999;
+}
+input:focus, input:invalid, input:required
+{
+  box-shadow: none;
+  outline: none;
+}
+input[type="submit"], input[type="submit"]:invalid
+{
+  width: 90px; height: 40px;
+  font-size: 13px;
+  background: #eee;
+  text-transform: uppercase;
+}
+input[type="submit"]:hover
+{
+  background: white;
+}

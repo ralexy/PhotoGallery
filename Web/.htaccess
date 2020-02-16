@@ -1,0 +1,11 @@
+RewriteEngine On
+# Si le fichier auquel on veut accéder existe (image par ex) on ne réécrit pas l'URL.
+
+RewriteRule ^admin/ backend.php [QSA,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteRule ^(.*)$ frontend.php [QSA,L]
+
+# On interdit l'accès direct à backend.php
+#Rewriterule backend.php / [QSA,L]
