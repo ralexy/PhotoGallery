@@ -1,71 +1,71 @@
 <?php
 namespace Library\Models;
 
-use Library\Entities\Artist;
+use Library\Entities\Collection;
 
-abstract class DownloadsManager extends \Library\Manager
+abstract class CollectionManager extends \Library\Manager
 {
   /**
-  * Méthode permettant d'ajouter un artiste
-  * @param $artist Artist L'artiste à ajouter
+  * Méthode permettant d'ajouter une collection
+  * @param $collection Collection La collection à ajouter
   * @return void
   **/
-  abstract protected function add(Artist $artist);
+  abstract protected function add(Collection $collection);
 
 
   /**
-  * Méthode permettant de compter le nombre d'artistes
+  * Méthode permettant de compter le nombre de collections
   * @return int
   **/
   abstract public function count();
 
 
   /**
-  * Méthode permettant de supprimer un artiste
-  * @param $id int Id de l'artiste à supprimer
-  * @return Download
+  * Méthode permettant de supprimer une collection
+  * @param $id int Id de la collection à supprimer
+  * @return void
   **/
   abstract public function delete($id);
 
   /**
-  * Méthode permettant de récupérer un artiste
-  * @param $id int Id de l'artiste à récupérer
-  * @return Artist
+  * Méthode permettant de récupérer une collection
+  * @param $id int Id de la collection à récupérer
+  * @return Collection
   **/
   abstract public function get($id);
 
   /**
-  * Méthode permettant de récupérer la liste des artistes
-  * @return Artist
+  * Méthode permettant de récupérer la liste des collections
+  * @return Collection
   **/
   abstract public function getList();
 
 
   /**
-  * Méthode permettant de modifier un artiste
-  * @param $artist Artist L'artiste à modifier
-  * @return Download
+  * Méthode permettant de modifier une collection
+  * @param $collection Collection La collection à modifier
+  * @return Collection
   **/
-  abstract protected function modify(Artist $artist);
+  abstract protected function modify(Collection $collection);
 
   /**
-  * Méthode permettant d'enregistrer un artiste
-  * @param $artist Artist L'artiste à enregistrer
+  * Méthode permettant d'enregistrer une collection
+  * @param $artist Artist La collection à enregistrer
   * @see self::add()
   * @see self::modify()
   * @return void
   */
-  public function save(Artist $artist)
+  public function save(Collection $collection)
   {
-    if ($artist->isValid())
-      $artist->isNew() ? $this->add($artist) : $this->modify($artist);
+    if ($collection->isValid())
+      $collection->isNew() ? $this->add($collection) : $this->modify($collection);
 
     else
-      throw new \RuntimeException('L\'entité Artist doit être valide pour être enregistrée.');
+      throw new \RuntimeException('L\'entité Collection doit être valide pour être enregistrée.');
   }
 
   /**
-  * Méthode permettant de rechercher un artiste
+  * Méthode permettant de rechercher une collection
   * @param $query string La valeur à rechercher
   * @return mixed
   */
