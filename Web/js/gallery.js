@@ -28,6 +28,15 @@ $("#arrow-right").click(function () {
     nextPicture();
 })
 
+$("body").on("swipeleft", function() {
+    alert("Swipe Left");
+});
+
+$("body").on("swiperight", function() {
+    alert("Swipe right");
+});
+
+
 // Methods
 function previousPicture() {
     if(i - 1 <= 0) {
@@ -36,13 +45,22 @@ function previousPicture() {
     }
     else {
         changePicture(json[--i%json.length].URL);
+        changeDescription(json[i%json.length])
     }
 }
 
 function nextPicture() {
     changePicture(json[++i%json.length].URL);
+    changeDescription(json[i%json.length])
 }
 
 function changePicture(url) {
     $("article").css('background-image', 'url('+ url+ ')');
+    $("article").css('background-size', 'auto 100%');
+}
+
+function changeDescription(infos) {
+    $("#title").text(infos.title);
+    $("#artist").text(infos.artist);
+    $("#year").text(infos.year);
 }

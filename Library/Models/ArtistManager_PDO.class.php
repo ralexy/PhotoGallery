@@ -4,7 +4,6 @@ namespace Library\Models;
 
 use Library\Entities\Artist;
 use Library\Entities\Collection;
-use Library\Manager\ArtistManager_PDO;
 
 class ArtistManager_PDO extends ArtistManager {
 

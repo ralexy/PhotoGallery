@@ -36,3 +36,24 @@ article {
     background: url("../pictures/icons/arrow-right.png");
     background-size: 80px 80px;
 }
+
+#description {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+#title, #artist, #year {
+    color: white;
+    line-height: 0.5em;
+    font-family: Courier;
+}
+
+#artist {
+    font-weight: normal;
+}
+
+#year {
+    font-size: 1.2em;
+}

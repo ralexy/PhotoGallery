@@ -1,7 +1,7 @@
 <?php
-namespace \Library\Entities;
+namespace Library\Entities;
 
-class Picture extends Library\Entity
+class Picture extends \Library\Entity
 {
     protected $pictureId,
               $title,
