@@ -22,6 +22,7 @@ article {
 
 #arrow-left:hover, #arrow-right:hover {
     opacity: 1;
+    cursor: pointer;
 }
 
 #arrow-left {

@@ -10,6 +10,7 @@
     <div id="arrow-left"></div>
     <div id="arrow-right"></div>
 </article>
-<script src="js/jquery-3.4.1.min.js.js"></script>
+<script src="js/jquery-3.4.1.min.js"></script>
+<script src="js/gallery.js"></script>
 </body>
 </html>
