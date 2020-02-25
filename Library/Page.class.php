@@ -21,9 +21,7 @@ class Page extends ApplicationComponent
   public function getGeneratedPage()
   {
     if (!is_file($this->contentFile))
-    {
       throw new \RuntimeException('La vue spécifiée n\'existe pas');
-    }
 
     $user = $this->app->user();
 

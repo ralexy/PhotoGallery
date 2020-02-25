@@ -7,5 +7,6 @@ class IndexController extends \Library\BackController
 
   public function executeIndex()
   {
+      $this->page->addVar('title', 'Accueil');
   }
 }

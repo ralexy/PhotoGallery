@@ -1,8 +1,56 @@
-body{
-    background: black;
+@font-face {
+    font-family: 'HelveticaLight';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Helvetica 45 Light'), url('../fonts/HelveticaNeueLight.woff') format('woff');
 }
 
-article {
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: black;
+    font-family: HelveticaLight;
+}
+
+header {
+    height: 6.5vh;
+    background: #333;
+    line-height: 50px;
+    vertical-align: middle;
+    color: white;
+    text-align: center;
+}
+
+#collections {
+    display: grid;
+    border-style: solid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    grid-gap: 1vh;
+    width: 100vw;
+}
+
+#collections article {
+    background: red;
+    border-collapse: collapse;
+    position: relative;
+}
+
+#collections article a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 46.75vh;
+    text-transform: uppercase;
+    color: white;
+    font-size: 1.75em;
+}
+
+#pictureShow {
     position: absolute;
     background: url('../pictures/resources/Mona_Lisa.jpg') no-repeat;
     background-size: auto 100%;
@@ -46,12 +94,15 @@ article {
 
 #title, #artist, #year {
     color: white;
-    line-height: 0.5em;
-    font-family: Courier;
+}
+
+#title {
+    font-size: 2.4em;
 }
 
 #artist {
     font-weight: normal;
+    font-size: 1.4em;
 }
 
 #year {

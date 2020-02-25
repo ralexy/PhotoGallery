@@ -42,6 +42,7 @@ function previousPicture() {
     if(i - 1 <= 0) {
         i = json.length-1;
         changePicture(json[i].URL)
+        changeDescription(json[i]);
     }
     else {
         changePicture(json[--i%json.length].URL);

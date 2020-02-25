@@ -5,15 +5,19 @@ use \Library\Entities\Picture;
 
 class PictureManager_PDO extends \Library\Manager
 {
-
   protected function add(Picture $picture) {
+    $q = $this->dao->prepare('INSERT INTO picture SET :title, :description, :sourceUrl, :artist, :year');
 
+    $q->bindValue('title', $picture->getTitle());
+    $q->bindValue('description', $picture->getDescription());
+    $q->bindValue('sourceUrl', $picture->getSourceUrl());
+    $q->bindValue('artist', $picture->getArtist());
+    $q->bindValue('year', $picture->getYear());
   }
 
   public function count() {
     return $this->dao->query('SELECT COUNT(id) FROM picture')->fetchColumn();
   }
-
 
   public function delete($id){
     $this->dao->exec('DELETE FROM picture WHERE id = '. (int) $id);
