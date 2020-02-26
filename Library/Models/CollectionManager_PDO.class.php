@@ -1,73 +1,45 @@
 <?php
 namespace Library\Models;
 
-use Library\Entities\Artist;
+use \Library\Entities\Collection;
 
-abstract class ArtistManager extends \Library\Manager
+class CollectionManager_PDO extends \Library\Manager
 {
-  /**
-  * Méthode permettant d'ajouter un artiste
-  * @param $artist Artist L'artiste à ajouter
-  * @return void
-  **/
-  abstract protected function add(Artist $artist);
+    protected function add(Collection $collection) {
+        $q = $this->dao->prepare('INSERT INTO collection SET :name, :description');
+
+        $q->bindValue('name', $collection->getName());
+        $q->bindValue('description', $collection->getDescription());
+    }
+
+    public function count() {
+        return $this->dao->query('SELECT COUNT(id) FROM collection')->fetchColumn();
+    }
+
+    public function delete($id){
+        $this->dao->exec('DELETE FROM collection WHERE id = '. (int) $id);
+    }
+
+    public function get($id) {
+        $q = $this->dao->query('SELECT collectionId, name, description FROM collection WHERE p.id = '. (int) $id);
+
+        $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Library\Entities\Collection');
+    }
+
+    public function getList($start = -1, $limit = -1) {
+        $sql = 'SELECT c.collectionId, c.name, c.description, p.pictureId AS firstPictureId FROM collection c RIGHT JOIN picture_collection p ON c.collectionId = p.collectionId';
+
+        if($start != -1 && $limit != -1)
+            $sql .= ' LIMIT '. (int) $limit. ' OFFSET '. (int) $start;
+
+        $q = $this->dao->query($sql);
+        $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Library\Entities\Collection');
+
+        return $q->fetchAll();
+    }
 
 
-  /**
-  * Méthode permettant de compter le nombre d'artistes
-  * @return int
-  **/
-  abstract public function count();
+    protected function modify(Picture $picture) {
 
-
-  /**
-  * Méthode permettant de supprimer un artiste
-  * @param $id int Id de l'artiste à supprimer
-  * @return Download
-  **/
-  abstract public function delete($id);
-
-  /**
-  * Méthode permettant de récupérer un artiste
-  * @param $id int Id de l'artiste à récupérer
-  * @return Artist
-  **/
-  abstract public function get($id);
-
-  /**
-  * Méthode permettant de récupérer la liste des artistes
-  * @return Artist
-  **/
-  abstract public function getList();
-
-
-  /**
-  * Méthode permettant de modifier un artiste
-  * @param $artist Artist L'artiste à modifier
-  * @return Download
-  **/
-  abstract protected function modify(Artist $artist);
-
-  /**
-  * Méthode permettant d'enregistrer un artiste
-  * @param $artist Artist L'artiste à enregistrer
-  * @see self::add()
-  * @see self::modify()
-  * @return void
-  */
-  public function save(Artist $artist)
-  {
-    if ($artist->isValid())
-      $artist->isNew() ? $this->add($artist) : $this->modify($artist);
-
-    else
-      throw new \RuntimeException('L\'entité Artist doit être valide pour être enregistrée.');
-  }
-
-  /**
-  * Méthode permettant de rechercher un artiste
-  * @param $query string La valeur à rechercher
-  * @return mixed
-  */
-  //abstract public function search($query);
+    }
 }

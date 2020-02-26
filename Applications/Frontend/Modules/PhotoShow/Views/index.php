@@ -8,3 +8,6 @@
         <h2 id="year">1503</h2>
     </div>
 </article>
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/gallery.js"></script>

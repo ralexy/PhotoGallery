@@ -20,6 +20,12 @@ $("body").keydown(function (e) {
     }
 });
 
+$('body').keyup(function(e){
+    if(e.which == 27){
+        redirectHomePage();
+    }
+});
+
 $("#arrow-left").click(function () {
     previousPicture();
 })
@@ -38,6 +44,11 @@ $("body").on("swiperight", function() {
 
 
 // Methods
+function redirectHomePage() {
+    window.location.replace("/");
+}
+
+
 function previousPicture() {
     if(i - 1 <= 0) {
         i = json.length-1;

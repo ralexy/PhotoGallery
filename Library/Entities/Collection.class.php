@@ -1,12 +1,13 @@
 <?php
-namespace \Library\Entities;
+namespace Library\Entities;
 
-class Collection extends Library\Entity
+class Collection extends \Library\Entity
 {
     protected $collectionId,
               $name,
               $description,
-              $creator;
+              $creator,
+              $firstPictureId;
 
     public function __construct(array $donnees = array()) {
         parent::__construct($donnees);
@@ -33,9 +34,14 @@ class Collection extends Library\Entity
         $this->crator = (int) $creator;
     }
 
+    public function setFirstPictureId(int $firstPictureId) {
+        $this->firstPictureId = $firstPictureId;
+    }
+
     // Getters
     public function getCollectionId() { return $this->collectionId; }
     public function getName() { return $this->name; }
     public function getDescription() { return $this->description; }
     public function getCreator() { return $this->creator; }
+    public function getFirstPictureId() { return $this->firstPictureId; }
 }

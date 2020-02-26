@@ -7,6 +7,10 @@ class IndexController extends \Library\BackController
 
   public function executeIndex()
   {
+      $collection = $this->managers->getManagerOf('collection')->getList();
+
       $this->page->addVar('title', 'Accueil');
+      $this->page->addVar('collection', $collection);
+      $this->page->addVar('appConfig', $this->app()->config());
   }
 }

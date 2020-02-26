@@ -2,10 +2,10 @@
 
 <div id="collections">
     <?php
-    for($i = 0; $i < 10; $i++) {
+    foreach($collection as $line) {
         ?>
-        <article>
-            <a href="#<?= $i ?>">Ma superbe collection</a>
+        <article style="background: url('<?= $appConfig->get('picturesURL'). '/'.  $line->getFirstPictureId(). $appConfig->get('picturesExtension'); ?>'); background-style: cover;">
+            <a href="/collection/<?= $line->getName() ?>/"><?= $line->getName() ?></a>
         </article>
         <?php
     }
