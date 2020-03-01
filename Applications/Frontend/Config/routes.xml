@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <routes>
   <route url="/(\?hl=[a-z]{2,})?" module="Index" action="index" /> <!-- Langue pour les moteurs de recherche, pas besoin de faker l'ajout de $_GET[]. -->
-  <route url="/collection/[a-z]+/" module="Photoshow" action="index" />
+  <route url="/collection/(.+)/" module="Photoshow" action="index" vars="collectionName" />
   <!--<route url="/login(\?hl=[a-z]{2,})?" module="Login" action="index" />
   <route url="/logout" module="Logout" action="index" />
   <route url="/signup(\?hl=[a-z]{2,})?" module="Signup" action="index" />

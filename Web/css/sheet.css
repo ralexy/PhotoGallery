@@ -5,6 +5,25 @@
     src: local('Helvetica 45 Light'), url('../fonts/HelveticaNeueLight.woff') format('woff');
 }
 
+@font-face {
+    font-family: 'PhotoShootRegular';
+    src: url('../fonts/photoshoot-webfont.woff2') format('woff2'),
+    url('../fonts/photoshoot-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@keyframes disappear {
+    0% { opacity: 1; }
+    100% { opacity: 0;}
+}
+
+@keyframes appear {
+    0% { opacity: 0; }
+    100% { opacity: 1;}
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -17,12 +36,16 @@ body{
 }
 
 header {
-    height: 6.5vh;
-    background: #333;
-    line-height: 50px;
+    height: 80px;
+    line-height: 80px;
     vertical-align: middle;
     color: white;
     text-align: center;
+    font-family: 'PhotoShootRegular';
+}
+
+header h1 {
+    font-size: 1.5em;
 }
 
 #collections {
@@ -46,31 +69,40 @@ header {
     align-items: center;
     height: 46.75vh;
     text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
     color: white;
-    font-size: 1.75em;
+    font-size: 3.5em;
+    background: rgba(0,0,0, 0.5);
+}
+
+#collections article a:hover {
+    text-decoration: underline;
+    background: rgba(0,0,0, 0);
 }
 
 #pictureShow {
     position: absolute;
-    background: url('../pictures/resources/Mona_Lisa.jpg') no-repeat;
+    background-repeat: no-repeat;
     background-size: auto 100%;
     background-position: center;
     top: 0; left: 0; right: 0; bottom: 0;
     display: block;
 }
 
-#arrow-left, #arrow-right {
+#arrow-left, #arrow-right, #cross, #info {
     width: 80px; height: 80px;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    opacity: 0.5;
-    transition: opacity 250ms ease-in;
+    opacity: 0;
+    animation: disappear 800ms linear;
 }
 
-#arrow-left:hover, #arrow-right:hover {
+#arrow-left:hover, #arrow-right:hover, #cross:hover, #info:hover {
     opacity: 1;
     cursor: pointer;
+    animation: appear 20ms linear;
 }
 
 #arrow-left {
@@ -83,6 +115,24 @@ header {
     right: 5%;
     background: url("../pictures/icons/arrow-right.png");
     background-size: 80px 80px;
+}
+
+#cross {
+    width: 50px; height: 50px;
+    top: 45px;
+    left: 25px;
+    background-image: url("../pictures/icons/cross.png");
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+}
+
+#info {
+    width: 50px; height: 50px;
+    top: 45px;
+    right: 25px;
+    background-image: url("../pictures/icons/info.png");
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
 }
 
 #description {

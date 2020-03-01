@@ -8,11 +8,11 @@ class PictureManager_PDO extends \Library\Manager
   protected function add(Picture $picture) {
     $q = $this->dao->prepare('INSERT INTO picture SET :title, :description, :sourceUrl, :artist, :year');
 
-    $q->bindValue('title', $picture->getTitle());
-    $q->bindValue('description', $picture->getDescription());
-    $q->bindValue('sourceUrl', $picture->getSourceUrl());
-    $q->bindValue('artist', $picture->getArtist());
-    $q->bindValue('year', $picture->getYear());
+    $q->bindValue('title', $picture->getTitle(), \PDO::PARAM_STR);
+    $q->bindValue('description', $picture->getDescription(), \PDO::PARAM_STR);
+    $q->bindValue('sourceUrl', $picture->getSourceUrl(), \PDO::PARAM_STR);
+    $q->bindValue('artist', $picture->getArtist(), \PDO::PARAM_INT);
+    $q->bindValue('year', $picture->getYear(), \PDO::PARAM_INT);
   }
 
   public function count() {
@@ -33,15 +33,29 @@ class PictureManager_PDO extends \Library\Manager
     $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Library\Entities\Picture');
   }
 
-  public function getList($start = -1, $limit = -1) {
+  public function getList($collectionName = NULL, $start = -1, $limit = -1) {
+
       $sql = 'SELECT p.pictureId, p.title, p.description, p.sourceUrl, CONCAT(a.firstName, \' \', a.lastName) AS artist, p.year 
-              FROM picture p  LEFT JOIN artist a
-              ON p.artist = a.authorId';
+                  FROM picture p  
+                  LEFT JOIN artist a ON p.artist = a.authorId';
+
+
+      if($collectionName) {
+          $sql .= ' LEFT JOIN picture_collection pc ON p.pictureId = pc.pictureId
+                  LEFT JOIN collection c ON pc.collectionId = c.collectionId
+                  WHERE c.name = :collectionName ORDER BY orderShow';
+      }
 
       if($start != -1 && $limit != -1)
           $sql .= ' LIMIT '. (int) $limit. ' OFFSET '. (int) $start;
 
-      $q = $this->dao->query($sql);
+      if(!$collectionName) {
+          $q = $this->dao->query($sql);
+      } else {
+          $q = $this->dao->prepare($sql);
+          $q->bindValue('collectionName', $collectionName);
+          $q->execute();
+      }
       $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Library\Entities\Picture');
 
       return $q->fetchAll();

@@ -1,11 +1,14 @@
 // Declarations
 
-let json = $.getJSON("http://photogallery/api/").done(function() {
+let url = window.location.href.split('/');
+let lastSegment = url.pop() || url.pop();
+
+let json = $.getJSON("http://photogallery/api/" + lastSegment).done(function() {
     json = json.responseJSON;
     console.log(json);
 });
 
-let i = 0;
+let i = 1;
 
 // Listeners
 $("body").keydown(function (e) {
@@ -24,6 +27,10 @@ $('body').keyup(function(e){
     if(e.which == 27){
         redirectHomePage();
     }
+
+    if(e.which == 73){
+        showHideDescription();
+    }
 });
 
 $("#arrow-left").click(function () {
@@ -32,6 +39,14 @@ $("#arrow-left").click(function () {
 
 $("#arrow-right").click(function () {
     nextPicture();
+})
+
+$("#cross").click(function () {
+    redirectHomePage();
+})
+
+$("#info").click(function () {
+    showHideDescription();
 })
 
 $("body").on("swipeleft", function() {
@@ -75,4 +90,20 @@ function changeDescription(infos) {
     $("#title").text(infos.title);
     $("#artist").text(infos.artist);
     $("#year").text(infos.year);
+}
+
+function showHideDescription() {
+    if($("#description").is(':visible')) {
+        hideDescription();
+    } else if($("#description").is(':hidden')) {
+        showDescription();
+    }
+}
+
+function hideDescription() {
+    $("#description").hide();
+}
+
+function showDescription() {
+    $("#description").show();
 }

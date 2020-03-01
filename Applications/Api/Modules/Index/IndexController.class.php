@@ -5,11 +5,15 @@ use Library\Entities\Picture;
 
 class IndexController extends \Library\BackController
 {
-  public function executeIndex()
+  public function executeIndex(\Library\HTTPRequest $request)
   {
-       $pictures = $this->managers->getManagerOf('Picture')->getList();
+       $collectionName = $request->getData('collectionName');
+       $pictures = $this->managers->getManagerOf('Picture')->getList($collectionName);
+
        $picturesURL = $this->app()->config()->get('picturesURL');
        $picturesExtension = $this->app()->config()->get('picturesExtension');
+
+       $jsonData = [];
 
        for($i = 0; $i < count($pictures); $i++) {
            if($pictures[$i] instanceof Picture)
