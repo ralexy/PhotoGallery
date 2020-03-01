@@ -57,8 +57,8 @@ abstract class PictureManager extends \Library\Manager
   */
   public function save(Picture $picture)
   {
-    if ($artist->isValid())
-      $artist->isNew() ? $this->add($picture) : $this->modify($picture);
+    if ($picture->isValid())
+      $picture->isNew() ? $this->add($picture) : $this->modify($picture);
 
     else
       throw new \RuntimeException('L\'entité Picture doit être valide pour être enregistrée.');

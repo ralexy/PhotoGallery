@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <routes>
+  <route url="/api/addpicture" module="addPicture" action="index" />
   <route url="/api/(.*)" module="Index" action="index" vars="collectionName" />
 </routes>

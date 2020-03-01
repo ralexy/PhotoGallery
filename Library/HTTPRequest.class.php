@@ -13,9 +13,12 @@ class HTTPRequest extends ApplicationComponent
     return isset($_COOKIE[$key]);
   }
 
-  public function getData($key)
+  public function getData($key = 0)
   {
-    return isset($_GET[$key]) ? $_GET[$key] : null;
+      if($key)
+        return isset($_GET[$key]) ? $_GET[$key] : null;
+
+      return $_GET;
   }
 
   public function getExists($key)

@@ -16,7 +16,7 @@ class Picture extends \Library\Entity
     }
 
     public function isValid() {
-        return $this->pictureId && $this->title && $this->description && $this->sourceUrl && $this->artist;
+        return $this->title && $this->description && $this->sourceUrl && $this->artist;
     }
 
     // Setters

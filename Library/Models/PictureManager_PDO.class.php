@@ -3,16 +3,18 @@ namespace Library\Models;
 
 use \Library\Entities\Picture;
 
-class PictureManager_PDO extends \Library\Manager
+class PictureManager_PDO extends PictureManager
 {
   protected function add(Picture $picture) {
-    $q = $this->dao->prepare('INSERT INTO picture SET :title, :description, :sourceUrl, :artist, :year');
+    $q = $this->dao->prepare('INSERT INTO picture SET title = :title, description = :description, sourceUrl = :sourceUrl, artist = :artist, year = :year');
 
-    $q->bindValue('title', $picture->getTitle(), \PDO::PARAM_STR);
-    $q->bindValue('description', $picture->getDescription(), \PDO::PARAM_STR);
-    $q->bindValue('sourceUrl', $picture->getSourceUrl(), \PDO::PARAM_STR);
-    $q->bindValue('artist', $picture->getArtist(), \PDO::PARAM_INT);
-    $q->bindValue('year', $picture->getYear(), \PDO::PARAM_INT);
+    $q->bindValue('title', $picture->getTitle());
+    $q->bindValue('description', $picture->getDescription());
+    $q->bindValue('sourceUrl', $picture->getSourceUrl());
+    $q->bindValue('artist', $picture->getArtist());
+    $q->bindValue('year', $picture->getYear()->format("Y"));
+
+    $q->execute();
   }
 
   public function count() {
