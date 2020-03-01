@@ -23,7 +23,7 @@ class AddPictureController extends \Library\BackController
               $res['result'] = 'error';
           }
       } else {
-          $res['result'] = 'success';
+          $res['result'] = 'error';
       }
 
       echo json_encode($res);
