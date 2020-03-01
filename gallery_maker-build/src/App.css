@@ -1,0 +1,104 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#mainCarousel .carousel-indicators {
+  margin: 10px 0 0;
+  padding-left: 40rem;
+  position: static;
+  text-align: left;
+  white-space: nowrap;
+  width: 100%;
+}
+#mainCarousel .carousel-indicators li {
+  background-color: transparent;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  display: inline-block;
+  height: auto;
+  margin: 0 !important;
+  width: auto;
+}
+#mainCarousel .carousel-indicators li img {
+  display: block;
+  opacity: 0.5;
+}
+#mainCarousel .carousel-indicators li.active img {
+  opacity: 1;
+}
+#mainCarousel .carousel-indicators li:hover img {
+  opacity: 0.75;
+}
+
+.carousel-inner .active {
+  display: flex;
+  justify-content: center;
+}
+
+.carousel-item > .img-fluid {
+  height: 560px;
+  width:auto;
+}
+
+#gallery-maker-main-column {
+  margin-left: 0.2em;
+  margin-right: 0.2em;
+}
+
+#gallery-maker-side-panel {
+  margin-left: 0.2em;
+  margin-right: 0.2em;
+}
+
+.jumbotron {
+  padding-top: 0em;
+  padding-bottom: 1em;
+}
+
+#gallery-maker-side-panel {
+  display: flex;
+  justify-content: center;
+}
+
+#mainCarousel .img-thumbnail {
+  max-width: 96px;
+}
+
+a[class*="carousel-control"]:hover {
+  background-color: lightgray;
+}
