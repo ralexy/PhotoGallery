@@ -45,7 +45,7 @@ class PictureManager_PDO extends PictureManager
 
 
       if($collectionName) {
-          $sql .= ' LEFT JOIN picture_collection pc ON p.pictureId = pc.pictureId
+          $sql .= ' LEFT JOIN picturecollection pc ON p.pictureId = pc.pictureId
                   LEFT JOIN collection c ON pc.collectionId = c.collectionId
                   WHERE c.name = :collectionName ORDER BY orderShow';
       }

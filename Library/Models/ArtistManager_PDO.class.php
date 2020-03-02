@@ -34,7 +34,7 @@ class ArtistManager_PDO extends ArtistManager
     }
 
     public function getList($start = -1, $limit = -1) {
-        /*$sql = 'SELECT c.collectionId, c.name, c.description, (SELECT MIN(p.pictureId) FROM picture_collection p WHERE p.collectionId = c.collectionId) AS firstPictureId FROM collection c GROUP BY c.collectionId';
+        /*$sql = 'SELECT c.collectionId, c.name, c.description, (SELECT MIN(p.pictureId) FROM picturecollection p WHERE p.collectionId = c.collectionId) AS firstPictureId FROM collection c GROUP BY c.collectionId';
 
         if($start != -1 && $limit != -1)
             $sql .= ' LIMIT '. (int) $limit. ' OFFSET '. (int) $start;
