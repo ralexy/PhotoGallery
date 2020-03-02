@@ -13,7 +13,7 @@ class IndexController extends \Library\BackController
        $picturesURL = $this->app()->config()->get('picturesURL');
        $picturesExtension = $this->app()->config()->get('picturesExtension');
 
-       $jsonData = [];
+       $jsonData = !empty($jsonData) ? $jsonData : [];
 
        for($i = 0; $i < count($pictures); $i++) {
            if($pictures[$i] instanceof Picture)

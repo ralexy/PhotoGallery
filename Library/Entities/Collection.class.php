@@ -6,7 +6,6 @@ class Collection extends \Library\Entity
     protected $collectionId,
               $name,
               $description,
-              $creator,
               $firstPictureId;
 
     public function __construct(array $donnees = array()) {
@@ -14,7 +13,7 @@ class Collection extends \Library\Entity
     }
 
     public function isValid() {
-        return $this->collectionId && $this->name && $this->description && $this->creator;
+        return $this->name && $this->description;
     }
 
     // Setters
@@ -30,10 +29,6 @@ class Collection extends \Library\Entity
         $this->description = htmlspecialchars($description);
     }
 
-    public function setCreator(int $creator) {
-        $this->crator = (int) $creator;
-    }
-
     public function setFirstPictureId(int $firstPictureId) {
         $this->firstPictureId = $firstPictureId;
     }
@@ -42,6 +37,5 @@ class Collection extends \Library\Entity
     public function getCollectionId() { return $this->collectionId; }
     public function getName() { return $this->name; }
     public function getDescription() { return $this->description; }
-    public function getCreator() { return $this->creator; }
     public function getFirstPictureId() { return $this->firstPictureId; }
 }

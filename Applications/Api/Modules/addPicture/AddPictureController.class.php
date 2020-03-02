@@ -1,5 +1,5 @@
 <?php
-namespace Applications\Api\Modules\Addpicture;
+namespace Applications\Api\Modules\AddPicture;
 
 use Library\Entities\Picture;
 
@@ -12,20 +12,24 @@ class AddPictureController extends \Library\BackController
       $res = [];
 
       if($data[0]) {
-          $data[0]['year'] = new \DateTime($data[0]['year']);
-          $picture = new Picture($data[0]);
+          foreach($data as $line) {
+              $line['year'] = new \DateTime($line['year']);
+              $picture = new Picture($line);
 
-          if ($picture->isValid()) {
-              $this->managers->getManagerOf('picture')->save($picture);
+              if($picture->isValid()) {
+                  $this->managers->getManagerOf('Picture')->save($picture);
 
-              $res['result'] = 'success';
-          } else {
-              $res['result'] = 'error';
+                  $line['pictureId'] = $picture->getPictureId();
+                  $line['year'] = $line['year']->format("Y");
+                  $res['result'][] = $line;
+              } else {
+                  $res['result'][] = 'error';
+              }
           }
       } else {
           $res['result'] = 'error';
       }
 
-      echo json_encode($res);
+      $this->page()->addVar('res', $res);
   }
 }

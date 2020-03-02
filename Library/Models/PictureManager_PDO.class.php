@@ -15,6 +15,8 @@ class PictureManager_PDO extends PictureManager
     $q->bindValue('year', $picture->getYear()->format("Y"));
 
     $q->execute();
+
+    $picture->setPictureId($this->dao->lastInsertId());
   }
 
   public function count() {
@@ -29,7 +31,7 @@ class PictureManager_PDO extends PictureManager
     $q = $this->dao->query('
         SELECT p.pictureId, p.title, p.description, p.sourceUrl, CONCAT(a.firstName, \' \', a.lastName) AS artist, p.year 
         FROM picture p  LEFT JOIN artist a
-        ON p.artist = a.authorId
+        ON p.artist = a.artistId
         WHERE p.id = '. (int) $id);
 
     $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Library\Entities\Picture');
@@ -39,7 +41,7 @@ class PictureManager_PDO extends PictureManager
 
       $sql = 'SELECT p.pictureId, p.title, p.description, p.sourceUrl, CONCAT(a.firstName, \' \', a.lastName) AS artist, p.year 
                   FROM picture p  
-                  LEFT JOIN artist a ON p.artist = a.authorId';
+                  LEFT JOIN artist a ON p.artist = a.artistId';
 
 
       if($collectionName) {

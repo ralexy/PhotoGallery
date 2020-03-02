@@ -3,13 +3,17 @@ namespace Library\Models;
 
 use \Library\Entities\Collection;
 
-class CollectionManager_PDO extends \Library\Manager
+class CollectionManager_PDO extends CollectionManager
 {
     protected function add(Collection $collection) {
-        $q = $this->dao->prepare('INSERT INTO collection SET :name, :description');
+        $q = $this->dao->prepare('INSERT INTO collection SET name = :name, description = :description');
 
         $q->bindValue('name', $collection->getName());
         $q->bindValue('description', $collection->getDescription());
+
+        $q->execute();
+
+        $collection->setCollectionId($this->dao->lastInsertId());
     }
 
     public function count() {
@@ -39,7 +43,7 @@ class CollectionManager_PDO extends \Library\Manager
     }
 
 
-    protected function modify(Picture $picture) {
+    protected function modify(Collection $collection) {
 
     }
 }

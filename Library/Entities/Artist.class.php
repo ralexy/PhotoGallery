@@ -1,9 +1,9 @@
 <?php
-namespace \Library\Entities;
+namespace Library\Entities;
 
-class Artist extends Library\Entity
+class Artist extends \Library\Entity
 {
-    protected $authorId,
+    protected $artistId,
               $firstName,
               $lastName,
               $birthDate,
@@ -16,12 +16,12 @@ class Artist extends Library\Entity
     }
 
     public function isValid() {
-        return $this->authorId && $this->firstName && $this->lastName && $this->birthDate && $this->biography;
+        return $this->firstName && $this->lastName && $this->birthDate && $this->biography;
     }
 
     // Setters
-    public function setAuthorId(int $authorId) {
-        $this->authorId = (int) $authorId;
+    public function setArtistId(int $artistId) {
+        $this->artistId = (int) $artistId;
     }
 
     public function setFirstName(string $firstName) {
@@ -32,11 +32,11 @@ class Artist extends Library\Entity
         $this->lastName = htmlspecialchars($lastName);
     }
 
-    public function birthDate(\DateTime $birthDate) {
+    public function setBirthDate(\DateTime $birthDate) {
         $this->birthDate = $birthDate;
     }
 
-    public function deathDate(\DateTime $deathDate) {
+    public function setDeathDate(\DateTime $deathDate) {
         $this->deathDate = $deathDate;
     }
 
@@ -45,7 +45,7 @@ class Artist extends Library\Entity
     }
 
     // Getters
-    public function getAuthorId() { return $this->authorId; }
+    public function getArtistId() { return $this->artistId; }
     public function getFirstName() { return $this->firstName; }
     public function getLastName() { return $this->lastName; }
     public function getBirthDate() { return $this->birthDate; }

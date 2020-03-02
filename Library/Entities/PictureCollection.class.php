@@ -1,11 +1,11 @@
 <?php
-namespace \Library\Entities;
+namespace Library\Entities;
 
-class PictureCollection extends Library\Entity
+class PictureCollection extends \Library\Entity
 {
     protected $pictureId,
-        $collectionId,
-        $orderShow;
+              $collectionId,
+              $orderShow;
 
     public function __construct(array $donnees = array())
     {
@@ -22,11 +22,11 @@ class PictureCollection extends Library\Entity
     }
 
     public function setCollectionId(int $collectionId) {
-        $this->pictureId = (int) $collectionId;
+        $this->collectionId = (int) $collectionId;
     }
 
     public function setOrderShow(int $orderShow) {
-        $this->pictureId = (int) $orderShow;
+        $this->orderShow = (int) $orderShow;
     }
 
     // Getters

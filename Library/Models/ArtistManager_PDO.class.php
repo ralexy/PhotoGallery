@@ -1,70 +1,52 @@
 <?php
-
 namespace Library\Models;
 
-use Library\Entities\Artist;
-use Library\Entities\Collection;
+use \Library\Entities\Artist;
 
-class ArtistManager_PDO extends ArtistManager {
+class ArtistManager_PDO extends ArtistManager
+{
+    protected function add(Artist $artist) {
+        $q = $this->dao->prepare('INSERT INTO artist SET firstName = :firstName, lastName = :lastName, birthDate = :birthDate, deathDate = :deathDate, biography = :biography');
 
-    /**
-     * Méthode permettant d'ajouter un artiste
-     * @param $artist Artist L'artiste à ajouter
-     * @return void
-     **/
-    protected function add(Artist $artist)
-    {
-        // TODO: Implement add() method.
+        $q->bindValue('firstName', $artist->getFirstName());
+        $q->bindValue('lastName', $artist->getLastName());
+        $q->bindValue('birthDate', $artist->getBirthDate()->format("Y-m-d"));
+        $q->bindValue('deathDate', $artist->getDeathDate()->format("Y-m-d"));
+        $q->bindValue('biography', $artist->getBiography());
+
+        $q->execute();
+
+        $artist->setArtistId($this->dao->lastInsertId());
     }
 
-    /**
-     * Méthode permettant de compter le nombre d'artistes
-     * @return int
-     **/
-    public function count()
-    {
-        // TODO: Implement count() method.
+    public function count() {
+        return $this->dao->query('SELECT COUNT(id) FROM artist')->fetchColumn();
     }
 
-    /**
-     * Méthode permettant de supprimer un artiste
-     * @param $id int Id de l'artiste à supprimer
-     * @return Download
-     **/
-    public function delete($id)
-    {
-        // TODO: Implement delete() method.
+    public function delete($id){
+        $this->dao->exec('DELETE FROM artist WHERE id = '. (int) $id);
     }
 
-    /**
-     * Méthode permettant de récupérer un artiste
-     * @param $id int Id de l'artiste à récupérer
-     * @return Artist
-     **/
-    public function get($id)
-    {
-        // TODO: Implement get() method.
+    public function get($id) {
+        $q = $this->dao->query('SELECT * FROM artist WHERE artistId = '. (int) $id);
+
+        $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Library\Entities\Artist');
     }
 
-    /**
-     * Méthode permettant de récupérer la liste des artistes
-     * @return Artist
-     **/
-    public function getList()
-    {
-        $q = $this->dao->query('SELECT * FROM artist');
+    public function getList($start = -1, $limit = -1) {
+        /*$sql = 'SELECT c.collectionId, c.name, c.description, (SELECT MIN(p.pictureId) FROM picture_collection p WHERE p.collectionId = c.collectionId) AS firstPictureId FROM collection c GROUP BY c.collectionId';
 
-        print_r(($q));
-        // TODO: Implement getList() method.
+        if($start != -1 && $limit != -1)
+            $sql .= ' LIMIT '. (int) $limit. ' OFFSET '. (int) $start;
+
+        $q = $this->dao->query($sql);
+        $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Library\Entities\Collection');
+
+        return $q->fetchAll();*/
     }
 
-    /**
-     * Méthode permettant de modifier un artiste
-     * @param $artist Artist L'artiste à modifier
-     * @return Download
-     **/
-    protected function modify(Artist $artist)
-    {
-        // TODO: Implement modify() method.
+
+    protected function modify(Artist $artist) {
+
     }
 }

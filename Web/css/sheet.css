@@ -158,3 +158,25 @@ header h1 {
 #year {
     font-size: 1.2em;
 }
+
+#error {
+    color: white;
+    text-align: center;
+    margin-top: 30px;
+}
+
+#error button {
+    margin-top: 20px;
+    padding: 15px 50px;
+    background: white;
+    color: black;
+    border-radius: 3px;
+    border: none;
+    opacity: 0.8;
+    font-size: 1em;
+}
+
+#error button:hover {
+    opacity: 1;
+    cursor: pointer;
+}
