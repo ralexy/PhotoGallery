@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <routes>
-  <route url="/api/addPicture" module="addPicture" action="index" />
-  <route url="/api/addCollection" module="addCollection" action="index" />
-  <route url="/api/addArtist" module="addArtist" action="index" />
-  <route url="/api/addPictureCollection" module="addPictureCollection" action="index" />
-  <route url="/api/(.*)" module="Index" action="index" vars="collectionName" />
+  <route url="/api/(.+)/addPicture" module="addPicture" action="index" vars="apiKey" />
+  <route url="/api/(.+)/addCollection" module="addCollection" action="index" vars="apiKey" />
+  <route url="/api/(.+)/addArtist" module="addArtist" action="index" vars="apiKey" />
+  <route url="/api/(.+)/editCollection" module="editCollection" action="index" vars="apiKey" />
+  <route url="/api/(.+)/(.*)" module="Index" action="index" vars="apiKey, collectionName" />
 </routes>

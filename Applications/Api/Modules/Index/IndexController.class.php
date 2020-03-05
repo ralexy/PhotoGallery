@@ -11,6 +11,7 @@ class IndexController extends \Library\BackController
        $pictures = $this->managers->getManagerOf('Picture')->getList($collectionName);
 
        $picturesURL = $this->app()->config()->get('picturesURL');
+       $picturesThumbsURL = $this->app()->config()->get('picturesThumbURL');
        $picturesExtension = $this->app()->config()->get('picturesExtension');
 
        $jsonData = !empty($jsonData) ? $jsonData : [];
@@ -23,7 +24,10 @@ class IndexController extends \Library\BackController
                $jsonData[$i]['title'] = $picture->getTitle();
                $jsonData[$i]['year'] = $picture->getYear();
                $jsonData[$i]['artist'] = $picture->getArtist();
-               $jsonData[$i]['URL'] = $picturesURL. $picture->getPictureId(). $picturesExtension;
+               $jsonData[$i]['url'] = $picturesURL;
+               $jsonData[$i]['thumbsUrl'] = $picturesThumbsURL;
+               $jsonData[$i]['fileName'] = $picture->getPictureId(). $picturesExtension;
+               $jsonData[$i]['pictureId'] = $picture->getPictureId();
            }
        }
 

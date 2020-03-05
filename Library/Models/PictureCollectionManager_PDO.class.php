@@ -24,6 +24,10 @@ class PictureCollectionManager_PDO extends PictureCollectionManager
     $this->dao->exec('DELETE FROM pictureCollection WHERE pictureId = '. (int) $id);
   }
 
+  public function deleteAll() {
+        $this->dao->exec('DELETE FROM pictureCollection');
+  }
+
   public function get($pictureId) {
     /*$q = $this->dao->query('
         SELECT p.pictureId, p.title, p.description, p.sourceUrl, CONCAT(a.firstName, \' \', a.lastName) AS artist, p.year 

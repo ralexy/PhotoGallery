@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <definitions>
+  <define var="apiKey" value="PZvv8Mqae8jFuUa4" />
   <define var="picturesURL" value="http://photogallery/pictures/resources/" />
+  <define var="picturesThumbURL" value="http://photogallery/pictures/resources/thumbs/" />
   <define var="picturesExtension" value=".jpg" />
 </definitions>

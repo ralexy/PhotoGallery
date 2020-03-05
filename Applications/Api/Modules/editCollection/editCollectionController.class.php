@@ -1,9 +1,9 @@
 <?php
-namespace Applications\Api\Modules\AddPictureCollection;
+namespace Applications\Api\Modules\EditCollection;
 
 use Library\Entities\PictureCollection;
 
-class addPictureCollectionController extends \Library\BackController
+class editCollectionController extends \Library\BackController
 {
   public function executeIndex(\Library\HTTPRequest $request)
   {
@@ -16,7 +16,12 @@ class addPictureCollectionController extends \Library\BackController
               $pictureCollection = new PictureCollection($line);
 
               if($pictureCollection->isValid()) {
-                  $this->managers->getManagerOf('PictureCollection')->save($pictureCollection);
+                  $pictureCollectionManager = $this->managers->getManagerOf('PictureCollection');
+
+                  // Suppression de tous les tuples et réinsertion dans l'ordre donné
+                  $pictureCollectionManager->deleteAll();
+                  $pictureCollectionManager->save($pictureCollection);
+
                   $res['result'][] = $line;
               } else {
                   $res['result'][] = 'error';

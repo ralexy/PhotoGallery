@@ -1,4 +1,6 @@
-<header><h1>PhotoGallery</h1></header>
+<header>
+    <h1>PhotoGallery</h1>
+</header>
 
 <div id="collections">
     <?php

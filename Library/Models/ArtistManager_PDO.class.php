@@ -45,7 +45,6 @@ class ArtistManager_PDO extends ArtistManager
         return $q->fetchAll();*/
     }
 
-
     protected function modify(Artist $artist) {
 
     }
