@@ -3,6 +3,6 @@
   <route url="/api/(.+)/addPicture" module="addPicture" action="index" vars="apiKey" />
   <route url="/api/(.+)/addCollection" module="addCollection" action="index" vars="apiKey" />
   <route url="/api/(.+)/addArtist" module="addArtist" action="index" vars="apiKey" />
-  <route url="/api/(.+)/editCollection" module="editCollection" action="index" vars="apiKey" />
+  <route url="/api/(.+)/editPictureCollection" module="editPictureCollection" action="index" vars="apiKey" />
   <route url="/api/(.+)/(.*)" module="Index" action="index" vars="apiKey, collectionName" />
 </routes>

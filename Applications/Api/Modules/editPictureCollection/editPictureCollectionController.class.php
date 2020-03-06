@@ -1,9 +1,9 @@
 <?php
-namespace Applications\Api\Modules\EditCollection;
+namespace Applications\Api\Modules\EditPictureCollection;
 
 use Library\Entities\PictureCollection;
 
-class editCollectionController extends \Library\BackController
+class editPictureCollectionController extends \Library\BackController
 {
   public function executeIndex(\Library\HTTPRequest $request)
   {
