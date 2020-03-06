@@ -12,7 +12,7 @@ class PDOFactory
         \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
       );
 
-      $db = new \PDO('mysql:host=127.0.0.1;dbname=photogallery', 'root', 'root', $options);
+      $db = new \PDO('mysql:host=127.0.0.1;dbname=photogallery', 'root', '', $options);
 
       return $db;
     }

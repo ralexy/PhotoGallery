@@ -3,9 +3,9 @@
 let url = window.location.href.split('/');
 let lastSegment = url.pop() || url.pop();
 
-let json = $.getJSON("http://photogallery/api/" + lastSegment).done(function() {
+let json = $.getJSON("http://photogallery/api/PZvv8Mqae8jFuUa4/" + lastSegment).done(function() {
     json = json.responseJSON;
-    console.log(json);
+    //console.log(json);
 });
 
 let i = 1;
@@ -67,17 +67,20 @@ function redirectHomePage() {
 function previousPicture() {
     if(i - 1 <= 0) {
         i = json.length-1;
-        changePicture(json[i].URL)
+		let url = json[i].url + json[i].fileName;
+        changePicture(url)
         changeDescription(json[i]);
     }
-    else {
-        changePicture(json[--i%json.length].URL);
-        changeDescription(json[i%json.length])
+    else {		
+		let url = json[--i%json.length].url + json[i].fileName;
+        changePicture(url);
+        changeDescription(json[i%json.length]);
     }
 }
 
 function nextPicture() {
-    changePicture(json[++i%json.length].URL);
+	let url = json[++i%json.length].url + json[i].fileName;
+    changePicture(url);
     changeDescription(json[i%json.length])
 }
 

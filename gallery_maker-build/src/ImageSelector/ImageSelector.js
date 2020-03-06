@@ -54,7 +54,6 @@ const ImageSelector = (props) => {
 
     return (
         <div className="row">
-        {console.log(props.images)}
             <div id="gallery-maker-main-column"
                 className="col-md-8 jumbotron">
                 <div className="imageSelector">
