@@ -72,14 +72,14 @@ function previousPicture() {
         changeDescription(json[i]);
     }
     else {		
-		let url = json[--i%json.length].url + json[i].fileName;
+		let url = json[--i%json.length].url + json[i%json.length].fileName;
         changePicture(url);
         changeDescription(json[i%json.length]);
     }
 }
 
 function nextPicture() {
-	let url = json[++i%json.length].url + json[i].fileName;
+	let url = json[++i%json.length].url + json[i%json.length].fileName;
     changePicture(url);
     changeDescription(json[i%json.length])
 }
