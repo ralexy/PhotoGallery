@@ -17,7 +17,12 @@ class CollectionManager_PDO extends CollectionManager
     }
 
     public function count() {
-        return $this->dao->query('SELECT COUNT(id) FROM collection')->fetchColumn();
+        return $this->dao->query('SELECT COUNT(collectionId) FROM collection')->fetchColumn();
+    }
+
+
+    public function countId($collectionId) {
+        return $this->dao->query('SELECT COUNT(collectionId) FROM collection WHERE collectionId = '. (int) $collectionId)->fetchColumn();
     }
 
     public function delete($id){

@@ -17,11 +17,11 @@ class PictureCollectionManager_PDO extends PictureCollectionManager
   }
 
   public function count($collectionId) {
-    return $this->dao->query('SELECT COUNT(id) FROM pictureCollection WHERE collectionId = '. (int) $collectionId)->fetchColumn();
+    return $this->dao->query('SELECT COUNT(pictureId) FROM pictureCollection WHERE collectionId = '. (int) $collectionId)->fetchColumn();
   }
 
-  public function delete($pictureId){
-    $this->dao->exec('DELETE FROM pictureCollection WHERE pictureId = '. (int) $id);
+  public function delete($collectionId){
+    $this->dao->exec('DELETE FROM pictureCollection WHERE collectionId = '. (int) $collectionId);
   }
 
   public function deleteAll() {

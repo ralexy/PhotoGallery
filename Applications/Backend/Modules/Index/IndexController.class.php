@@ -5,7 +5,6 @@ class IndexController extends \Library\BackController
 {
   public function executeIndex()
   {
-    $this->page->addVar('Title', 'Statistics');
-    $this->page->addVar('hideSearch', 1);
+    $this->page->addVar('Title', 'Picture manager');
   }
 }

@@ -16,7 +16,7 @@ class LoginController extends \Library\BackController
       {
         $this->app->user()->setAuthenticated($this->app->name());
         //$this->app->httpResponse()->redirect('.');
-        $this->app->httpResponse()->redirect('members');
+        $this->app->httpResponse()->redirect('.');
       }
       else
       {

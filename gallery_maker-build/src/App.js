@@ -11,6 +11,8 @@ const newGalleryAddr = "gallery/";
 
 const API_URL = "http://photogallery/api/";
 const API_KEY = "PZvv8Mqae8jFuUa4/";
+const ADD_COLLECION = "addCollection"
+const EDIT_PICTURE_COLLECTION = "editPictureCollection";
 
 export { RES_DIR, FULL_SIZE_DIR, THUMB_DIR };
 
@@ -31,6 +33,8 @@ class App extends Component {
       galleryName: "",
       galleryDesc: "",
     };
+    this.handleSaveGallery =
+      this.handleSaveGallery.bind(this)
   }
 
   newGalleryOnClick = (e) => {
@@ -51,37 +55,45 @@ class App extends Component {
     this.render();
   }
 
-  handleSaveGallery = () => {
-    let galleryId;
-    fetch(API_URL, {
+  handleSaveGallery() {
+    const { galleryName, galleryDesc } = this.state;
+    let formdata = new FormData();
+    formdata.append("postJson", "[{\"name\":\"" + galleryName + "\",\"description\":\"" + galleryDesc + "\"}]");
+    fetch(API_URL + API_KEY + ADD_COLLECION, {
       method: "POST",
-      body: [{
-        "name": this.state.galleryName,
-        "description": this.state.galleryDesc
-      }]
-    }).then(function (response) {
-      if (response.ok) {
-        console.log(response);
-        responseObj = JSON.parse(response.json);
-        galleryId = responseObj.collectionId
-      }
-    });
+      body: formdata
+    }).then(response => response.json())
+      .then(data => {
+          this.postGallery(data.result[0].collectionId);
+      });
+  }
 
-    let toSend = {
-      postJson: this.state.tempGallery
-    }
-    let json = JSON.stringify(toSend);
+  postGallery(id) {
+    const { tempGallery } = this.state
+    let ordered = [];
+    tempGallery.map(({ pictureId, order }, i) => {
+      let orderedImage = {
+        "pictureId": pictureId,
+        "collectionId": id,
+        "orderShow": order+1,
+      }
+      ordered.push(orderedImage);
+    });
+    console.log(ordered);
+
+    let json = JSON.stringify(ordered);
+    let formdata = new FormData();
+    formdata.append("postJson", json);
+
     let headers = new Headers();
-    fetch(API_URL + API_KEY, {
-      method: "POST",
-      body: json
-    }).then(function (response) {
-      if (response.ok) {
-        console.log(response);
-        alert("Requête OK");
-
-      }
-    });
+    fetch(API_URL + API_KEY + EDIT_PICTURE_COLLECTION,
+      {
+        method: "POST",
+        body: formdata
+      }).then(response => response.json())
+      .then(data => {
+          console.log(data);
+      });
   }
 
   renderImageSelector() {
@@ -111,11 +123,9 @@ class App extends Component {
     });
     return (
       <div className="App">
-        <header className="App-header">
-        </header>
         <div className="container mt-2">
-              <NameForm name={this.state.galleryName} desc={this.state.galleryDesc} handleChange={this.handleNameDescChange} />
-            </div>
+          <NameForm name={this.state.galleryName} desc={this.state.galleryDesc} handleChange={this.handleNameDescChange} />
+        </div>
         <GalleryOrdener
           newGallery={orderedTempGallery}
           handleBackClick={this.handleBackClick}
@@ -135,6 +145,7 @@ class App extends Component {
             isLoaded: true,
             jsonGallery: gallery,
           });
+          console.log(result)
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
@@ -153,13 +164,11 @@ class App extends Component {
       case 'formName':
         {
           this.setState({ galleryName: e.target.value })
-          console.log(this.state.galleryName)
         }
         break;
       case 'formDesc':
         {
           this.setState({ galleryDesc: e.target.value })
-          console.log(this.state.galleryDesc)
         }
         break;
       default:
@@ -181,8 +190,6 @@ class App extends Component {
       if (this.state.appState === appStates.imageSelector) {
         return (
           <div className="App">
-            <header className="App-header">
-            </header>
             <div className="container mt-2">
               <NameForm name={galleryName} desc={galleryDesc} handleChange={this.handleNameDescChange} />
             </div>
