@@ -5,7 +5,7 @@ class ImageCheckbox extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isChecked: props.ordered
+            isChecked: this.props.ordered
         };
     }
 
@@ -40,6 +40,7 @@ class ImageCheckbox extends Component {
 }
 
 ImageCheckbox.propTypes = {
+    ordered: PropTypes.bool.isRequired,
     imageIndex: PropTypes.number.isRequired,
     onCheckboxClick: PropTypes.func.isRequired
 }

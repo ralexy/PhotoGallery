@@ -4,11 +4,11 @@ import { Button, OverlayTrigger, Popover } from 'react-bootstrap/';
 import PropTypes from 'prop-types';
 import ImageCheckbox from './ImageCheckbox';
 import GalleryImageInfoPanel from '../GalleryImageInfoPanel';
-import {RES_DIR, FULL_SIZE_DIR, THUMB_DIR} from '../App';
+import { RES_DIR, FULL_SIZE_DIR, THUMB_DIR } from '../App';
 
 const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
-const ImageSelector = (props) => {
+function ImageSelector (props) {
     const onCheckboxClick = (isChecked, index) => {
         if (isChecked) {
             if (!(props.tempGallery.includes(props.images[index]))) {
@@ -51,6 +51,21 @@ const ImageSelector = (props) => {
             </Popover.Content>
         </Popover>
     );
+
+    const fetchedCheck = (i) => {
+        if(props.tempGallery.length > 0)
+        {
+            let img = props.tempGallery.find(
+                function (img) {
+                    return img.pictureId === props.images[i].pictureId
+                }
+            )
+            if(img != null) {
+                return img.hasOwnProperty('order')
+            }
+        } 
+
+    }
 
     return (
         <div className="row">

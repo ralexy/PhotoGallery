@@ -3,18 +3,13 @@ import './App.css';
 import ImageSelector, { MOCK_GALLERY } from './ImageSelector/ImageSelector'
 import GalleryOrdener from './GalleryOrdener/GalleryOrdener'
 import NameForm from './GalleryNameForm'
-
-const RES_DIR = './res/';
-const FULL_SIZE_DIR = 'full_size/';
-const THUMB_DIR = 'thumbs/';
-const newGalleryAddr = "gallery/";
+import ReqForm from './GalleryReqForm'
 
 const API_URL = "http://photogallery/api/";
 const API_KEY = "PZvv8Mqae8jFuUa4/";
 const ADD_COLLECION = "addCollection"
 const EDIT_PICTURE_COLLECTION = "editPictureCollection";
-
-export { RES_DIR, FULL_SIZE_DIR, THUMB_DIR };
+const GET_COLLECTION = "?collectionName=";
 
 const appStates = {
   "imageSelector": "imageSelector",
@@ -32,9 +27,12 @@ class App extends Component {
       appState: appStates.imageSelector,
       galleryName: "",
       galleryDesc: "",
+      toFetchName: "",
+      fetchedGallery: false
     };
     this.handleSaveGallery =
-      this.handleSaveGallery.bind(this)
+      this.handleSaveGallery.bind(this);
+    this.fetchFromName = this.fetchFromName.bind(this)
   }
 
   newGalleryOnClick = (e) => {
@@ -64,7 +62,7 @@ class App extends Component {
       body: formdata
     }).then(response => response.json())
       .then(data => {
-          this.postGallery(data.result[0].collectionId);
+        this.postGallery(data.result[0].collectionId);
       });
   }
 
@@ -75,7 +73,7 @@ class App extends Component {
       let orderedImage = {
         "pictureId": pictureId,
         "collectionId": id,
-        "orderShow": order+1,
+        "orderShow": order + 1,
       }
       ordered.push(orderedImage);
     });
@@ -92,8 +90,66 @@ class App extends Component {
         body: formdata
       }).then(response => response.json())
       .then(data => {
-          console.log(data);
+        console.log(data);
       });
+  }
+
+  fetchFromName() {
+    const { toFetchName } = this.state;
+    fetch(API_URL + API_KEY + GET_COLLECTION + toFetchName)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          let gallery = [];
+          result.map(({ title, year, artist, url, thumbsUrl, fileName, pictureId }, i) => {
+            let orderedImage = {
+              title: title,
+              year: year,
+              artist: artist,
+              url: url,
+              thumbsUrl: thumbsUrl,
+              fileName: fileName,
+              pictureId: pictureId,
+              order: i
+            }
+            gallery.push(orderedImage);
+          });
+          let temp = this.state.jsonGallery;
+          temp.forEach(function(img){
+            gallery.forEach(function(fetchedimg){
+              if(img.pictureId === fetchedimg.pictureId) {
+                img = {
+                  artist: fetchedimg.artist,
+                  fileName: fetchedimg.fileName,
+                  pictureId: fetchedimg.pictureId,
+                  thumbsUrl: fetchedimg.thumbsUrl,
+                  title: fetchedimg.title,
+                  url: fetchedimg.url,
+                  year: fetchedimg.year,
+                  order: fetchedimg.order,
+                };
+                console.log(img)
+              }
+            })
+          })
+          console.log(temp)
+          this.setState({
+            tempGallery: gallery,
+            jsonGallery: temp,
+            fetchedGallery: true,
+          });
+          console.log(this.state.jsonGallery)
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
   }
 
   renderImageSelector() {
@@ -145,7 +201,6 @@ class App extends Component {
             isLoaded: true,
             jsonGallery: gallery,
           });
-          console.log(result)
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
@@ -176,8 +231,12 @@ class App extends Component {
     }
   };
 
+  handleFetchNameChange = (e) => {
+    this.setState({ toFetchName: e.target.value })
+  };
+
   render() {
-    const { error, isLoaded, jsonGallery, galleryName, galleryDesc } = this.state;
+    const { error, isLoaded, jsonGallery, galleryName, galleryDesc, fetchedGallery } = this.state;
     if (error) {
       return (
         <p>Erreur</p>
@@ -191,6 +250,7 @@ class App extends Component {
         return (
           <div className="App">
             <div className="container mt-2">
+              {!fetchedGallery && <ReqForm fetchFromName={this.fetchFromName} handleChange={this.handleFetchNameChange} />}
               <NameForm name={galleryName} desc={galleryDesc} handleChange={this.handleNameDescChange} />
             </div>
             <div className="container-fluid ml-5 mr-4">
