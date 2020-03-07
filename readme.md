@@ -2,7 +2,8 @@
 
 # Galerie Photo
 
-Cette applicaton web permet de visionner et de gérer une galerie photo.
+Cette applicaton web est notre projet de fin de Licence.
+Il permet de visionner et de gérer une galerie photo.
 
 # Usage rapide
 
